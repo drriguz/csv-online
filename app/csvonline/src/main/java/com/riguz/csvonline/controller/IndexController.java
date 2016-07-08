@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.common.base.Strings;
@@ -27,6 +26,25 @@ public class IndexController {
 
 	@Autowired
 	private UserService userService;
+
+
+	private ModelAndView error(String msg){
+		ModelAndView view = new ModelAndView("error/error");
+		view.addObject("errorMsg", msg);
+		return view;
+	}
+
+	private ModelAndView info(String msg){
+		ModelAndView view = new ModelAndView("public/info");
+		view.addObject("msg", msg);
+		return view;
+	}
+
+	private ModelAndView renderResult(boolean success){
+		if(success)
+			return this.info("操作成功");
+		return this.error("操作失败");
+	}
 
 	@RequestMapping(value = "index.do", method = RequestMethod.GET)
 	public ModelAndView index(){
@@ -66,9 +84,17 @@ public class IndexController {
 		return view;
 	}
 
-	@ResponseBody
+	@RequestMapping(value = "delete.do", method = RequestMethod.GET)
+	public ModelAndView delete(
+			@RequestParam(required = true) String id){
+		logger.info("Deleting user:{}", id);
+		boolean result = this.userService.deleteUser(id);
+		logger.info("Result:{}", result);
+		return this.renderResult(result);
+	}
+
 	@RequestMapping(value = "save.do", method = RequestMethod.POST, produces = "text/javascript; charset=UTF-8")
-	public String save(
+	public ModelAndView save(
 			@ModelAttribute("user") User user,
 			HttpServletResponse response)
 					throws IOException{
@@ -81,8 +107,6 @@ public class IndexController {
 			success = this.userService.addUser(user);
 		}
 		logger.info("Result:{}", success);
-		if(success)
-			return "<script>alert('保存成功！');window.location.href='list.do';</script>";
-		return "<script>alert('保存失败！')</script>";
+		return this.renderResult(success);
 	}
 }

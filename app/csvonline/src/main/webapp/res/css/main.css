@@ -12,6 +12,7 @@ body{
 	width:900;
 	padding:5px 5px 5px 5px;
 	background:#eee;
+	min-height:500px;
 }
 
 .menu{

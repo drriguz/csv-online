@@ -16,7 +16,7 @@
             </table>
             </form>
         </div>
-        <p>查询到结果${users?size}条</p>
+        <p>查询到结果${users?size}条 <a href="edit.do">新增</a></p>
         <table class="hovertable">
             <tr>
                 <th style="width:100px">ID</th>
@@ -31,7 +31,7 @@
                 <td>${u.firstName} ${u.lastName}</td>
                 <td>${u.email}</td>
                 <td>${u.address}</td>
-                <td><a href="edit.do?id=${u.userId}">修改</a> <a href="delete.do?id=${u.userId}">删除</a></td>
+                <td><a href="edit.do?id=${u.userId}">修改</a> <a href="delete.do?id=${u.userId}" onclick="return confirm('确定删除?');">删除</a></td>
             </tr>
         </#list> 
         </table>
