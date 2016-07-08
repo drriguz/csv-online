@@ -6,7 +6,7 @@
 <#assign content>
     <#include "public/menu.ftl"/>
     <div class="content">
-        <form action="save.do" method="POST">
+        <form action="save.action" method="POST">
             <input name="userId" type="hidden" value="${user.userId}">
             <table class="hovertable">
                 <tr>

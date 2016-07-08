@@ -31,7 +31,7 @@
                 <td>${u.firstName} ${u.lastName}</td>
                 <td>${u.email}</td>
                 <td>${u.address}</td>
-                <td><a href="edit.do?id=${u.userId}">修改</a> <a href="delete.do?id=${u.userId}" onclick="return confirm('确定删除?');">删除</a></td>
+                <td><a href="edit.do?id=${u.userId}">修改</a> <a href="delete.action?id=${u.userId}" onclick="return confirm('确定删除?');">删除</a></td>
             </tr>
         </#list> 
         </table>

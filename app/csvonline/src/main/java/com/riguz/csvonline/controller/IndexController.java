@@ -46,6 +46,10 @@ public class IndexController {
 		return this.error("操作失败");
 	}
 
+	/**
+	 * 首页
+	 * @return
+	 */
 	@RequestMapping(value = "index.do", method = RequestMethod.GET)
 	public ModelAndView index(){
 		ModelAndView view = new ModelAndView("index");
@@ -53,6 +57,12 @@ public class IndexController {
 		return view;
 	}
 
+	/**
+	 * 列表查询页面
+	 * @param name
+	 * @param email
+	 * @return
+	 */
 	@RequestMapping(value = "list.do", method = RequestMethod.GET)
 	public ModelAndView list(
 			@RequestParam(required = false) String name,
@@ -64,6 +74,12 @@ public class IndexController {
 		return view;
 	}
 
+
+	/**
+	 * 查看详情页面
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = "view.do", method = RequestMethod.GET)
 	public ModelAndView view(
 			@RequestParam String id){
@@ -73,6 +89,12 @@ public class IndexController {
 		return view;
 	}
 
+
+	/**
+	 * 编辑页面
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = "edit.do", method = RequestMethod.GET)
 	public ModelAndView edit(
 			@RequestParam(required = false) String id){
@@ -84,7 +106,12 @@ public class IndexController {
 		return view;
 	}
 
-	@RequestMapping(value = "delete.do", method = RequestMethod.GET)
+	/**
+	 * 删除动作
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "delete.action", method = RequestMethod.GET)
 	public ModelAndView delete(
 			@RequestParam(required = true) String id){
 		logger.info("Deleting user:{}", id);
@@ -93,7 +120,14 @@ public class IndexController {
 		return this.renderResult(result);
 	}
 
-	@RequestMapping(value = "save.do", method = RequestMethod.POST, produces = "text/javascript; charset=UTF-8")
+	/**
+	 * 新增及更新操作
+	 * @param user
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "save.action", method = RequestMethod.POST)
 	public ModelAndView save(
 			@ModelAttribute("user") User user,
 			HttpServletResponse response)
