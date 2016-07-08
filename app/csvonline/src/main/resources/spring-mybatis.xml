@@ -8,7 +8,7 @@
             http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
             http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd">
 
-	<!-- Spring and MyBatis 整合 ref:http://www.itnose.net/detail/6074493.html-->
+	<!-- Spring and MyBatis 整合 ref:http://www.itnose.net/detail/6074493.html -->
 	<context:annotation-config />
 	<context:component-scan base-package="com.riguz.csvonline.controller" />
 	<context:component-scan base-package="com.riguz.csvonline.service.impl" />
@@ -19,9 +19,22 @@
 	<!-- 采取MyBatis配置数据库 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="mapperLocations" value="classpath:com/riguz/csvonline/mapping/*.xml"></property>		
+		<property name="mapperLocations" value="classpath:com/riguz/csvonline/mapping/*.xml"></property>
+		<property name="plugins">
+			<array>
+				<bean class="com.github.pagehelper.PageHelper">
+					<property name="properties">
+						<value>
+							dialect=mysql
+							offsetAsPageNum=true
+							rowBoundsWithCount=true
+						</value>
+					</property>
+				</bean>
+			</array>
+		</property>
 	</bean>
-    
+
 	<!-- 配置dbcp数据源 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
 		destroy-method="close">
@@ -33,18 +46,21 @@
 		<property name="maxIdle" value="${jdbc.maxIdle}" />        <!-- 队列中的最大等待数 -->
 		<property name="maxWaitMillis" value="${jdbc.maxWait}" />  <!-- 最长等待时间，单位毫秒 -->
 		<property name="maxTotal" value="${jdbc.maxTotal}" />      <!-- 最大活跃数 -->
-		<property name="initialSize" value="${jdbc.initialSize}" /><!-- 初始大小 -->
+		<property name="initialSize" value="${jdbc.initialSize}" /><!-- 
+			初始大小 -->
 	</bean>
 
 	<!-- 配置事务管理器 -->
 	<bean id="TransactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
-	</bean>    
-	
+	</bean>
+
 	<!-- beans -->
-    <bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-        <property name="mapperInterface" value="com.riguz.csvonline.dao.UserMapper" />
-        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
-    </bean>
+	<bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.riguz.csvonline.dao.UserMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+
+
 </beans>

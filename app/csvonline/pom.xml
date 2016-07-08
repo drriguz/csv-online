@@ -8,6 +8,15 @@
 	<name>csvonline Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
+	<repositories>
+		<repository>
+			<id>repo2</id>
+			<mirrorOf>central</mirrorOf>
+			<name>Human Readable Name for this Mirror.</name>
+			<url>http://repo2.maven.org/maven2/</url>
+		</repository>
+	</repositories>
+
 	<properties>
 		<junit>4.12</junit>
 		<jdk>1.8</jdk>
@@ -26,6 +35,7 @@
 		<freemarker>2.3.21</freemarker>
 		<jackson>2.7.4</jackson>
 		<guava>19.0</guava>
+		<pagehelper>4.1.6</pagehelper>
 	</properties>
 
 	<dependencies>
@@ -136,6 +146,11 @@
 			<artifactId>mybatis-spring</artifactId>
 			<version>${mybatis-spring}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper</artifactId>
+			<version>${pagehelper}</version>
+		</dependency>
 		<!-- Web -->
 		<dependency>
 			<groupId>org.freemarker</groupId>
@@ -156,7 +171,7 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>
-			<version>${jackson}</version> 
+			<version>${jackson}</version>
 		</dependency>
 	</dependencies>
 	<build>

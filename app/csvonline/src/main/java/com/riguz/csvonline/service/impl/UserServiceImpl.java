@@ -2,8 +2,10 @@ package com.riguz.csvonline.service.impl;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.github.pagehelper.PageHelper;
 import com.google.common.base.Strings;
 import com.riguz.csvonline.dao.UserMapper;
 import com.riguz.csvonline.model.User;
@@ -18,14 +20,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public List<User> getUsers(String name, String email) {
-		UserExample arg = new UserExample();
-		Criteria c = arg.or();
-		if(!Strings.isNullOrEmpty(name))
-			c.andFirstNameLike("%" + name + "%");
-		if(!Strings.isNullOrEmpty(email))
-			c.andEmailLike("%" + email + "%");
-		arg.setOrderByClause("user_id desc");
-		return this.userMapper.selectByExample(arg);
+		return this.getUsers(name, email, null);
 	}
 
 	@Override
@@ -50,5 +45,19 @@ public class UserServiceImpl implements UserService{
 		nextId += 1;
 		user.setUserId(nextId + "");
 		return this.userMapper.insert(user) > 0;
+	}
+
+	@Override
+	public List<User> getUsers(String name, String email, RowBounds page) {
+		UserExample arg = new UserExample();
+		Criteria c = arg.or();
+		if(!Strings.isNullOrEmpty(name))
+			c.andFirstNameLike("%" + name + "%");
+		if(!Strings.isNullOrEmpty(email))
+			c.andEmailLike("%" + email + "%");
+		arg.setOrderByClause("user_id desc");
+		if(page != null)
+            PageHelper.startPage(page.getOffset(), page.getLimit());
+		return this.userMapper.selectByExample(arg);
 	}
 }

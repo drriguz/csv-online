@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.github.pagehelper.Page;
 import com.google.common.base.Strings;
+import com.riguz.csvonline.bean.EasyUiGrid;
 import com.riguz.csvonline.model.User;
 import com.riguz.csvonline.service.UserService;
 
@@ -206,10 +209,15 @@ public class IndexController {
 
 	@ResponseBody
 	@RequestMapping(value = "json.do", method = RequestMethod.GET)
-	public User listJson(
+	public EasyUiGrid<User> listJson(
 			@RequestParam(required = false) String name,
-			@RequestParam(required = false) String email){
-		List<User> users = this.userService.getUsers(name, email);
-		return users.get(0);
+			@RequestParam(required = false) String email,
+			@RequestParam(required = false, defaultValue="1") int page,
+			@RequestParam(required = false, defaultValue="10") int rows){
+		List<User> users = this.userService.getUsers(name, email, new RowBounds(page, rows));
+		EasyUiGrid<User> grid = new EasyUiGrid<User>();
+		grid.setRows(users);
+		grid.setTotal(((Page) users).getTotal());
+		return grid;
 	}
 }
