@@ -9,5 +9,5 @@
             http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd">
 
 	<!-- beans -->
-    <bean id="queryService" class="com.riguz.csvonline.service.impl.MybatisQueryService"></bean>
+    <bean id="userService" class="com.riguz.csvonline.service.impl.UserServiceImpl"></bean>
 </beans>

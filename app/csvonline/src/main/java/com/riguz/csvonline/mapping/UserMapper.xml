@@ -393,4 +393,8 @@
       web = #{web,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=CHAR}
   </update>
+  
+  <select id="selectMaxUserId" resultType="java.lang.String" >
+    select user_id from user order by user_id desc limit 1
+  </select>
 </mapper>

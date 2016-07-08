@@ -1,9 +1,11 @@
 package com.riguz.csvonline.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.riguz.csvonline.model.User;
 import com.riguz.csvonline.model.UserExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
     /**
@@ -93,4 +95,7 @@ public interface UserMapper {
      * @mbggenerated Fri Jun 17 15:52:57 CST 2016
      */
     int updateByPrimaryKey(User record);
+
+
+    String selectMaxUserId();
 }

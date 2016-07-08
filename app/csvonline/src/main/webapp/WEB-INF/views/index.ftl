@@ -1,14 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"   
- "http://www.w3.org/TR/html4/loose.dtd">  
-<html>  
-    <head>  
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
-        <title>${title}</title>  
-    </head>  
-    <body>  
+<#assign content>
+    <#include "public/menu.ftl"/>
+    <div class="content">
+        
+        <p>This is a demo application</p>
+        
+        <img src="res/img/flower.png"/>
         <p>
-            This is a web application created by SpringMVC & Spring & Mybatis & Freemarker
+            <small> Riguz.com&copy 2016-2017 Published by GPL V2 License</small>
         </p>
-        <a href="list.do">List DEMO</a>
-    </body>  
-</html>  
+    </div>
+</#assign>
+<#include "public/layout.ftl"/> 
