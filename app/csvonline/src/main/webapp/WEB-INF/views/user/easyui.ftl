@@ -8,6 +8,16 @@
 <#assign content>
     
     <div class="content">
+        <div id="p" class="easyui-panel" title="SpringMVC EasyUI DEMO" style="width:100%;padding:10px;">
+            <p style="font-size:14px">jQuery EasyUI framework helps you build your web pages easily.</p>
+            <ul>
+                <li><a href="index.do">首页</a></li>
+                <li><a href="list.do">CURD</a></li>
+                <li><a href="upload.do">文件上传</a></li>
+                <li><a href="#">Bootstrap</a></li>
+                <li><a href="easyui.do">EasyUI</a></li>
+            </ul>
+        </div>
         <table id="grid" title="用户列表" class="easyui-datagrid" style=""
             url="json.do" method="get"
             toolbar="#toolbar"
