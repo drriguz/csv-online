@@ -2,7 +2,7 @@
     <#include "public/menu.ftl"/>
     <div class="content">
         <div class="error">
-            <h2>${errorMsg!}</h2>
+            <span>${errorMsg!}</span>
         </div>
     </div>
 </#assign>

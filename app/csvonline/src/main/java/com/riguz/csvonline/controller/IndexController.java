@@ -1,5 +1,6 @@
 package com.riguz.csvonline.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.common.base.Strings;
@@ -142,5 +144,45 @@ public class IndexController {
 		}
 		logger.info("Result:{}", success);
 		return this.renderResult(success);
+	}
+
+	/**
+	 * 上传文件页面
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "upload.do", method = RequestMethod.GET)
+	public ModelAndView upload(){
+		ModelAndView view = new ModelAndView("user/upload");
+		List<User> users = this.userService.getUsers(null, null);
+		view.addObject("users", users);
+		return view;
+	}
+
+	/**
+	 * 上传文件页面
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "upload.action", method = RequestMethod.POST)
+	public ModelAndView uploadAction(
+			@RequestParam(required = true) MultipartFile uploadFile){
+
+		logger.info("Uploading file:{}", uploadFile.getName());
+		String fileName = uploadFile.getOriginalFilename();
+
+		String root = System.getProperty("app.root");
+		fileName = "upload" + File.separatorChar + fileName;
+		logger.info("Root path:{}", root);
+		try {
+			File file = new File(root + fileName);
+			if(!file.exists())
+				file.mkdirs();
+			uploadFile.transferTo(file);
+			return this.info(String.format("<p>上传成功</p><img src='%s'/>", fileName));
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+		}
+		return this.error("上传失败");
 	}
 }

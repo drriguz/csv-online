@@ -4,7 +4,7 @@
         <td>
             <a href="index.do">首页</a>
             <a href="list.do">CURD</a>
-            <a href="#">文件上传</a>
+            <a href="upload.do">文件上传</a>
             <a href="#">Bootstrap</a>
             <a href="#">jqGrid</a>
         </td>
