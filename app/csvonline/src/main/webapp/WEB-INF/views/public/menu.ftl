@@ -6,7 +6,7 @@
             <a href="list.do">CURD</a>
             <a href="upload.do">文件上传</a>
             <a href="#">Bootstrap</a>
-            <a href="#">jqGrid</a>
+            <a href="easyui.do">EasyUI</a>
         </td>
     </tr>
 </table>

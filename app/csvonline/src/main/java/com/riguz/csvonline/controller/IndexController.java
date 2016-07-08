@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -160,7 +161,7 @@ public class IndexController {
 	}
 
 	/**
-	 * 上传文件页面
+	 * 上传文件动作
 	 * @param id
 	 * @return
 	 */
@@ -184,5 +185,31 @@ public class IndexController {
 			e.printStackTrace();
 		}
 		return this.error("上传失败");
+	}
+
+	/**
+	 * EasyUI GRID示例
+	 * @param name
+	 * @param email
+	 * @return
+	 */
+	@RequestMapping(value = "easyui.do", method = RequestMethod.GET)
+	public ModelAndView easyui(
+			@RequestParam(required = false) String name,
+			@RequestParam(required = false) String email){
+		ModelAndView view = new ModelAndView("user/easyui");
+		List<User> users = this.userService.getUsers(name, email);
+		view.addObject("users", users);
+		view.addObject("title", "列表示例");
+		return view;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "json.do", method = RequestMethod.GET)
+	public User listJson(
+			@RequestParam(required = false) String name,
+			@RequestParam(required = false) String email){
+		List<User> users = this.userService.getUsers(name, email);
+		return users.get(0);
 	}
 }
