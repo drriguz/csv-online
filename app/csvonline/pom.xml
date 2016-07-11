@@ -36,6 +36,7 @@
 		<jackson>2.7.4</jackson>
 		<guava>19.0</guava>
 		<pagehelper>4.1.6</pagehelper>
+		<version>6.0.3</version>
 	</properties>
 
 	<dependencies>
