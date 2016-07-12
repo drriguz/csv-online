@@ -1,17 +1,36 @@
 <#assign header>
-    <link href="res/css/table.css" rel="stylesheet" type="text/css"/> 
+    <link href="res/css/table.css" rel="stylesheet" type="text/css"/>
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
+    
+    <style>
+    .error{
+        color:red;
+    }
+    </style>
+    <script>
+    $().ready(function() {
+        jQuery.validator.addMethod("isMobile", function(value, element) {       
+            var length = value.length;   
+            var mobile = /^(((13[0-9]{1})|(15[0-9]{1}))+\d{8})$/;   
+            return this.optional(element) || (length == 11 && mobile.test(value));       
+        }, "请正确填写您的手机号码"); 
+        $("#userForm").validate();
+    }); 
+    </script>
 </#assign>
 <#assign title>编辑</#assign>
 
 <#assign content>
     <#include "public/menu.ftl"/>
     <div class="content">
-        <form action="save.action" method="POST">
+        <form id="userForm" action="save.action" method="POST">
             <input name="userId" type="hidden" value="${user.userId}">
             <table class="hovertable">
                 <tr>
                     <th>First Name</th>
-                    <td><input name="firstName" value="${user.firstName}"></td>
+                    <td><input name="firstName" value="${user.firstName}" required="true"></td>
                 </tr>
                 <tr>
                     <th>Last Name</th>
@@ -39,7 +58,7 @@
                 </tr>
                 <tr>
                     <th>Phone1</th>
-                    <td><input name="phone1" value="${user.phone1}"></td>
+                    <td><input name="phone1" value="${user.phone1}" isMobile="true"></td>
                 </tr>
                 <tr>
                     <th>Phone2</th>
@@ -47,7 +66,7 @@
                 </tr>
                 <tr>
                     <th>Web</th>
-                    <td><input name="web" value="${user.web}"></td>
+                    <td><input name="web" value="${user.web}" url="true"></td>
                 </tr>
                 <tr>
                     <th></th>

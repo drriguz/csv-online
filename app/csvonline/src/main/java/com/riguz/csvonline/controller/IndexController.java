@@ -33,7 +33,6 @@ public class IndexController {
 	@Autowired
 	private UserService userService;
 
-
 	private ModelAndView error(String msg){
 		ModelAndView view = new ModelAndView("error/error");
 		view.addObject("errorMsg", msg);
