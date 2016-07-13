@@ -25,6 +25,11 @@
 <#assign content>
     <#include "public/menu.ftl"/>
     <div class="content">
+    <form id="testForm" action="test.do" method="POST">
+    <input name="id">
+    <input name="fromDate">
+    <input type="submit" value="提交">
+    </form>
         <form id="userForm" action="save.action" method="POST">
             <input name="userId" type="hidden" value="${user.userId}">
             <table class="hovertable">

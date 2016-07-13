@@ -16,6 +16,7 @@
                 <li><a href="upload.do">文件上传</a></li>
                 <li><a href="#">Bootstrap</a></li>
                 <li><a href="easyui.do">EasyUI</a></li>
+                <li><a href="easycurd.do">EasyUI CURD</a></li>
             </ul>
         </div>
         <table id="grid" title="用户列表" class="easyui-datagrid" style=""

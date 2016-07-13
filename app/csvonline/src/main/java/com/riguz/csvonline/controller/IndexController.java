@@ -2,6 +2,8 @@ package com.riguz.csvonline.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -10,7 +12,10 @@ import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.github.pagehelper.Page;
 import com.google.common.base.Strings;
 import com.riguz.csvonline.bean.EasyUiGrid;
+import com.riguz.csvonline.model.T1;
 import com.riguz.csvonline.model.User;
 import com.riguz.csvonline.service.UserService;
 
@@ -206,6 +212,17 @@ public class IndexController {
 		return view;
 	}
 
+	@RequestMapping(value = "easycurd.do", method = RequestMethod.GET)
+	public ModelAndView easycurd(
+			@RequestParam(required = false) String name,
+			@RequestParam(required = false) String email){
+		ModelAndView view = new ModelAndView("easyui/index");
+		List<User> users = this.userService.getUsers(name, email);
+		view.addObject("users", users);
+		view.addObject("title", "列表示例");
+		return view;
+	}
+
 	@ResponseBody
 	@RequestMapping(value = "json.do", method = RequestMethod.GET)
 	public EasyUiGrid<User> listJson(
@@ -218,5 +235,20 @@ public class IndexController {
 		grid.setRows(users);
 		grid.setTotal(((Page) users).getTotal());
 		return grid;
+	}
+
+	@InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));   //true:允许输入空值，false:不能为空值
+    }
+
+	@ResponseBody
+	@RequestMapping(value = "test.do", method = RequestMethod.POST)
+	public T1 test(@ModelAttribute("t1") T1 t1){
+		System.out.println("=>");
+		System.out.println(t1.getFromDate());
+		return t1;
 	}
 }

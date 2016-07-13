@@ -1,0 +1,39 @@
+@CHARSET "UTF-8";
+
+body{
+	font-family: Microsoft Yahei, Georgia, serif;
+	background-size:cover;
+	margin:0 auto;
+}
+
+.header{
+	height:60px;
+	overflow: hidden;
+}
+
+#logo{
+	padding-left:10px;
+	float:left;
+}
+
+#title{
+	float:left;
+	height:50px;
+	font-size:20px;
+	padding-top:10px;
+	over-flow:hidden;
+}
+
+.menu-bar{
+	width:150px;
+}
+
+.footer{
+	height:50px;
+	text-align:center;
+}
+
+.footer p{
+    color:gray;
+    font-size:x-small;
+}
