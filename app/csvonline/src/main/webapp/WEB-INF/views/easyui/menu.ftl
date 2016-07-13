@@ -2,7 +2,7 @@
     <div class="easyui-accordion" style="width:149px;">
         <div title="系统管理" data-options="iconCls:'icon-ok'" style="overflow:auto;padding:10px;">
             <ul>
-                <li><a href="#">用户管理</a></li>
+                <li><a href="#" onclick="addIframeTab('#content-tab', 'list.do', 'Baidu', 'icon-add');">用户管理</a></li>
                 <li><a href="#">角色管理</a></li>
                 <li><a href="#">系统设置</a></li>
             </ul>
