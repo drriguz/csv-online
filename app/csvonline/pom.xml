@@ -33,7 +33,7 @@
 		<mybatis-spring>1.3.0</mybatis-spring>
 		<mariadb-java-client>1.4.5</mariadb-java-client>
 		<freemarker>2.3.21</freemarker>
-		<jackson>2.7.4</jackson>
+		<jackson>2.9.10.8</jackson>
 		<guava>19.0</guava>
 		<pagehelper>4.1.6</pagehelper>
 		<version>6.0.3</version>
